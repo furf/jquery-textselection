@@ -1,4 +1,4 @@
-(function($) {
+(function($) { 
 
 
   var Selection = (function() {
@@ -28,7 +28,7 @@
     	    var range = document.selection.createRange();
     	    var rangeLength = range.text.length;
 
-    	    if(range.parentElement() != el) {
+    	    if(range.parentElement() !== el) {
     	      throw('Unable to get selection range.');
     	    }
 
@@ -139,7 +139,7 @@
 
     		var selectionEnd  = start + textLength;
 
-    	  if (selectText == true) {
+    	  if (selectText === true) {
     	    this.setSelectionRange(el, start, selectionEnd);
     	  } else {
     	    this.setSelectionRange(el, selectionEnd);
@@ -160,7 +160,7 @@
        * 
        */
       wrapSelectedText: function(el, beforeText, afterText, selectText) {
-    	  var text = beforeText + getSelectedText(el) + afterText;
+    	  var text = beforeText + this.getSelectedText(el) + afterText;
     		this.replaceSelectedText(el, text, selectText);
       }
 
