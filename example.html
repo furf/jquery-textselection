@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+	<title>jQuery.textSelection Plugin</title>
+
+  <style type="text/css" media="screen">
+    div {
+      padding:0.5em;
+    }
+    textarea {
+      line-height:1.1em;
+      width:40em;
+      height:8em;
+    }
+    input {
+      line-height:1.1em;
+      width:40em;
+    }
+  </style>
+
+	<script src="http://assets.dev/js/jquery/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="http://assets.dev/js/jquery/plugins/jquery-textselection/jquery.textSelection-1.0.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+	(function($) {
+
+	  $(function(){
+	    
+      var example  = $('#example-1')
+
+        .find('textarea')
+          .focus(function() {
+            $('input[name=element][value=textarea]').click();
+          })
+        .end()
+
+        .find('input')
+          .focus(function() {
+            $('input[name=element][value=input[type=text]]').click();
+          })
+        .end(),
+
+      getCheckedElement = function() {
+        var checked = $('input[name=element]:checked').val();
+        return $(checked, example);
+      };
+
+
+      $('button#getSelectionRange', example).click(function() {
+        console.log(getCheckedElement().getSelectionRange());
+      });
+
+      $('button#getSelectionStart', example).click(function() {
+        console.log(getCheckedElement().getSelectionStart());
+      });
+
+      $('button#getSelectionEnd', example).click(function() {
+        console.log(getCheckedElement().getSelectionEnd());
+      });
+
+      $('button#getSelectedText', example).click(function() {
+        console.log(getCheckedElement().getSelectedText());
+      });
+
+      $('button#setSelectionRange', example).click(function() {
+        getCheckedElement().setSelectionRange(6, 11);
+      });
+
+      $('button#insertText', example).click(function() {
+        getCheckedElement().insertText('hello', 0, 5, true);
+      });
+
+      $('button#replaceSelectedText', example).click(function() {
+        getCheckedElement().replaceSelectedText('hello', true);
+      });
+
+      $('button#wrapSelectedText', example).click(function() {
+        getCheckedElement().wrapSelectedText('<b>', '</b>', true);
+      });
+      
+	  });
+
+	})(jQuery);
+	</script>
+</head>
+
+<body>
+
+  <div class="example" id="example-1">
+    <div><input type="radio" name="element" value="textarea" checked="true"/><textarea>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</textarea></div>
+    <div><input type="radio" name="element" value="input[type=text]"/><input value="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."/></div>
+    <div>
+      <ul>
+        <li><button id="getSelectionRange">getSelectionRange()</button></li>
+        <li><button id="getSelectionStart">getSelectionStart()</button></li>
+        <li><button id="getSelectionEnd">getSelectionEnd()</button></li>
+        <li><button id="getSelectedText">getSelectedText()</button></li>
+        <li><button id="setSelectionRange">setSelectionRange(6, 11)</button></li>
+        <li><button id="insertText">insertText('Hello', 0, 5, true)</button></li>
+        <li><button id="replaceSelectedText">replaceSelectedText('hello', true)</button></li>
+        <li><button id="wrapSelectedText">wrapSelectedText('&lt;b&gt;', '&lt;/b&gt;', true)</button></li>
+      </ul>
+    </div>
+  </div>
+
+</body>
+</html>
