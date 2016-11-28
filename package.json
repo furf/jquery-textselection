@@ -1,0 +1,32 @@
+{
+  "name": "jquery-textselection",
+  "version": "1.0.1",
+  "description": "A library of jQuery plugins for selecting, inserting, and replacing text within form elements",
+  "main": "dist/jquery.textselection.min.js",
+  "scripts": {
+    "build": "npm install && grunt",
+    "test": "echo 'Error: no test specified' && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jhorowitz-firedrum/jquery-textselection.git"
+  },
+  "keywords": [
+  ],
+  "author": "David Furfero <furftastic@yahoo.com>",
+  "contributors": [
+    "Jonathan Horowitz <jhorowitz@firedrum.com>"
+  ],
+  "license": "GPL-3.0",
+  "homepage": "https://github.com/jhorowitz-firedrum/jquery-textselection#readme",
+  "dependencies": {
+    "jquery": ">=1.7"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-uglify": "^1.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "requirejs": "^2.1.22"
+  }
+}
