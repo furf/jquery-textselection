@@ -1,6 +1,6 @@
 {
   "name": "jquery-textselection",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A library of jQuery plugins for selecting, inserting, and replacing text within form elements",
   "main": "dist/jquery.textselection.min.js",
   "scripts": {

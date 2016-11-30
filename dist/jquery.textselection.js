@@ -1,9 +1,9 @@
 /*!
- * jQuery TextSelection v1.0.1
+ * jQuery TextSelection v1.0.2
  * https://github.com/jhorowitz-firedrum/jquery-textselection
  * Copyright David Furfero and other contributors
  * Released under the GPL-3.0 license
- * Date: 2016-11-28T22:28Z
+ * Date: 2016-11-30T20:18Z
  */
 window = ( typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {} );
 document = window.document || {};
@@ -173,8 +173,42 @@ document = window.document || {};
              *
              */
             replaceSelectedText: function( el, text, selectText ) {
-                var selection = this.getSelectionRange( el );
-                this.insertText( el, text, selection.start, selection.end, selectText );
+                try {
+                    var selection = this.getSelectionRange( el );
+                    this.insertText( el, text, selection.start, selection.end, selectText );
+                } catch( e ) {
+                    if ( window.getSelection ) {
+                        var range;
+                        var sel = window.getSelection();
+                        if ( sel.getRangeAt && sel.rangeCount ) {
+                            range = sel.getRangeAt( 0 );
+                            range.deleteContents();
+                            var el = document.createElement( "div" );
+                            el.innerHTML = text;
+                            var frag = document.createDocumentFragment(), node, lastNode;
+                            while ( ( node = el.firstChild ) ) {
+                                lastNode = frag.appendChild( node );
+                            }
+                            range.insertNode( frag );
+                            
+                            if ( lastNode ) {
+                                if ( selectText === true ) {
+                                    range.setEndAfter( lastNode );
+                                } else {
+                                    range = range.cloneRange();
+                                    range.setStartAfter( lastNode );
+                                    range.collapse( true );
+                                    sel.removeAllRanges();
+                                    sel.addRange( range );
+                                }
+                            }
+                        }
+                    } else if ( document.selection && document.selection.type != "Control" ) {
+                        document.selection.createRange().pasteHTML( text );
+                    } else {
+                        throw( e );
+                    }
+                }
             },
 
             /**

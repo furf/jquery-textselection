@@ -150,8 +150,42 @@ function() {
              *
              */
             replaceSelectedText: function( el, text, selectText ) {
-                var selection = this.getSelectionRange( el );
-                this.insertText( el, text, selection.start, selection.end, selectText );
+                try {
+                    var selection = this.getSelectionRange( el );
+                    this.insertText( el, text, selection.start, selection.end, selectText );
+                } catch( e ) {
+                    if ( window.getSelection ) {
+                        var range;
+                        var sel = window.getSelection();
+                        if ( sel.getRangeAt && sel.rangeCount ) {
+                            range = sel.getRangeAt( 0 );
+                            range.deleteContents();
+                            var el = document.createElement( "div" );
+                            el.innerHTML = text;
+                            var frag = document.createDocumentFragment(), node, lastNode;
+                            while ( ( node = el.firstChild ) ) {
+                                lastNode = frag.appendChild( node );
+                            }
+                            range.insertNode( frag );
+                            
+                            if ( lastNode ) {
+                                if ( selectText === true ) {
+                                    range.setEndAfter( lastNode );
+                                } else {
+                                    range = range.cloneRange();
+                                    range.setStartAfter( lastNode );
+                                    range.collapse( true );
+                                    sel.removeAllRanges();
+                                    sel.addRange( range );
+                                }
+                            }
+                        }
+                    } else if ( document.selection && document.selection.type != "Control" ) {
+                        document.selection.createRange().pasteHTML( text );
+                    } else {
+                        throw( e );
+                    }
+                }
             },
 
             /**
