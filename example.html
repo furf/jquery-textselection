@@ -22,8 +22,8 @@
     }
   </style>
 
-	<script src="http://assets.dev/js/jquery/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
-	<script src="http://assets.dev/js/jquery/plugins/jquery-textselection/jquery.textSelection-1.0.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="node_modules/jquery/dist/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="dist/jquery.textSelection.min.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
 	(function($) {
 
@@ -33,18 +33,18 @@
 
         .find('textarea')
           .focus(function() {
-            $('input[name=element][value=textarea]').click();
+            $('input[name="element"][value="textarea"]').click();
           })
         .end()
 
         .find('input')
           .focus(function() {
-            $('input[name=element][value=input[type=text]]').click();
+            $('input[name="element"][value="input[type=text]"]').click();
           })
         .end(),
 
       getCheckedElement = function() {
-        var checked = $('input[name=element]:checked').val();
+        var checked = $('input[name="element"]:checked').val();
         return $(checked, example);
       };
 
@@ -91,7 +91,7 @@
 
   <div class="example" id="example-1">
     <div><input type="radio" name="element" value="textarea" checked="true"/><textarea>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</textarea></div>
-    <div><input type="radio" name="element" value="input[type=text]"/><input value="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."/></div>
+    <div><input type="radio" name="element" value="input[type=text]"/><input type="text" value="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."/></div>
     <div>
       <ul>
         <li><button id="getSelectionRange">getSelectionRange()</button></li>
